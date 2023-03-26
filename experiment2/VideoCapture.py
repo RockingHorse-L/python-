@@ -6,27 +6,25 @@
 
     级联分类器
 """
-import time
 
 import cv2
-from face import Face
-from hand import Hand
+from hands import Hand
+
 class HandleCapture:
     def __init__(self):
-        self.face = Face()
-        self.hand = Hand()
         self.faceVideo = cv2.VideoCapture(0)
+        self.hands = Hand()
         pass
+
     def videoDetect(self):
         faceVideo = self.faceVideo
         while faceVideo.isOpened():
             retval, image = faceVideo.read()
             if not retval:
-                return
-            prev_time = time.time()
-            self.face.process(image)
-            self.face.drawFPS(image, prev_time)
-            self.hand.process(image)
+                print('not open')
+                break
+            self.hands.process(image)
+            #self.pose.process(image)
             cv2.imshow('image', image)
             key = cv2.waitKey(1)
             if key == ord('q'):
