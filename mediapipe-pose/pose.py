@@ -28,18 +28,18 @@ class Pose:
     def process(self, img):
         self.img = img
         # 开始
-        self.grade.StartCountdown(self.img)
+        self.grade.StartCountdown()
 
         # 进行
+        self.grade.ingCountDown()
         self.drawPointStyle()
         # 没有关键点不需要执行
         if len(self.landmark) == 0:
             return
         self.armBuildCnt()
-
         # 结束
-        if self.grade.countDownTime == -1:
-            self.grade.endFlag(self.img)
+        if self.grade.status == 3 :
+            self.grade.endFlag()
 
 
     def drawPointStyle(self):
